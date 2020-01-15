@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">StrathFund</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="strathfund_logo">StrathFund Logo</string>
+    <string name="intro1">Strathfund is a new simple way for Strathmore university students to borrow and lend money amongst themselves.</string>
+</resources>
