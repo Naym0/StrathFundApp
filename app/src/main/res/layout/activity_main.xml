@@ -11,10 +11,11 @@
         android:id="@+id/btnregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/btnshape"
+        android:backgroundTint="@color/colorPrimary"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -23,41 +24,43 @@
         android:id="@+id/btnlogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/btnshape"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="157dp"
-        android:layout_height="113dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="230dp"
+        android:layout_height="212dp"
+        android:layout_marginTop="160dp"
         android:contentDescription="@string/strathfund_logo"
         android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/p2plogo" />
+        app:srcCompat="@drawable/newlogo" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:text="@string/intro1"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:fontFamily="@font/fauna_one"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+    <!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:layout_marginEnd="30dp"-->
+<!--        android:layout_marginRight="30dp"-->
+<!--        android:text="@string/intro1"-->
+<!--        android:justificationMode="none"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="24sp"-->
+<!--        app:fontFamily="@font/fauna_one"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageView2" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
