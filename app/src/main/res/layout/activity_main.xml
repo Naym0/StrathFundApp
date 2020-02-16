@@ -17,6 +17,7 @@
         android:background="@drawable/btnshape"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/register"
+        android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -29,6 +30,7 @@
         android:layout_marginBottom="60dp"
         android:background="@drawable/btnshape"
         android:text="@string/login"
+        android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
