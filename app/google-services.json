@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "244823964733",
+    "firebase_url": "https://strathfund.firebaseio.com",
+    "project_id": "strathfund",
+    "storage_bucket": "strathfund.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244823964733:android:25b5b065e8c921d6c87e54",
+        "android_client_info": {
+          "package_name": "com.example.strathfund"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244823964733-npiip69l1f84qt491skrv30bo37nf4e2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw5hJHNxQRZL6kXQeEwyMv4jZB5pRANS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244823964733-npiip69l1f84qt491skrv30bo37nf4e2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

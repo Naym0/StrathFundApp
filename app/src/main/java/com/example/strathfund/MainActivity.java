@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View v){
-        if (v.getId() == R.id.btnregister){
+        if (v.getId() == R.id.btnregistermain){
             Intent intent = new Intent(this, Register.class);
             startActivity(intent);
         }
-        else if (v.getId() == R.id.btnlogin){
+        else if (v.getId() == R.id.btnloginmain){
             startActivity(new Intent(this, Login.class));
         }
     }
