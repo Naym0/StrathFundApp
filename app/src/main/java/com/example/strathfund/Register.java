@@ -19,6 +19,7 @@ public class Register extends AppCompatActivity {
     EditText rname, remail, rID, rpass, rcpass, rnumber;
     Button register;
     FirebaseAuth mfirebaseAuth;
+    static String DOMAIN_NAME = ("strathmore.edu");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,8 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 String email = remail.getText().toString();
                 String pass = rpass.getText().toString();
+                String cpass = rcpass.getText().toString();
+                String domain = email.substring(email.indexOf("@") + 1).toLowerCase();
 
                 if(email.isEmpty()){
                     remail.setError("Please enter a valid email address");
@@ -47,18 +50,39 @@ public class Register extends AppCompatActivity {
                     rpass.setError("Please enter your password");
                     rpass.requestFocus();
                 }
+                else if(cpass.isEmpty()){
+                    rcpass.setError("Please confirm your password");
+                    rcpass.requestFocus();
+                }
                 else if(email.isEmpty() && pass.isEmpty()){
                     Toast.makeText(Register.this, "Fields are empty!", Toast.LENGTH_SHORT).show();
+                }
+                else if(!(cpass.equals(pass))){
+                    rcpass.setError("Please confirm that both passwords match");
+                    rcpass.requestFocus();
+                }
+                else if(!(domain.equals(DOMAIN_NAME))){
+                    remail.setError("Please use a valid Strathmore email address");
+                    remail.requestFocus();
                 }
                 else if(!(email.isEmpty() && pass.isEmpty())){
                     mfirebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(Register.this, "Registration Unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
+                            if(task.isSuccessful()){
+                                mfirebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(Register.this, "Registration successful. Please check your email to verify account", Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(Register.this, Login.class));
+                                        }
+                                    }
+                                });
+                                //startActivity(new Intent(Register.this, Dashboard.class));
                             }
                             else{
-                                startActivity(new Intent(Register.this, Dashboard.class));
+                                Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -68,6 +92,5 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
-
     }
 }

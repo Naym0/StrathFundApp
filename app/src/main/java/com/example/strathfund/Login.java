@@ -68,11 +68,17 @@ public class Login extends AppCompatActivity {
                     mfirebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(Login.this, "Login unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
+                            if(task.isSuccessful()){
+                                if(mfirebaseAuth.getCurrentUser().isEmailVerified()){
+                                    startActivity(new Intent(Login.this, Dashboard.class));
+                                    Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(Login.this, "Please verify your email address", Toast.LENGTH_SHORT).show();
+                                }
                             }
                             else{
-                                startActivity(new Intent(Login.this, Dashboard.class));
+                                Toast.makeText(Login.this, "Login unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
