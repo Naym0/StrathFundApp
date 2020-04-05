@@ -2,6 +2,7 @@ package com.example.strathfund;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,14 +13,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Register extends AppCompatActivity {
     EditText rname, remail, rID, rpass, rcpass, rnumber;
     Button register;
     FirebaseAuth mfirebaseAuth;
-    static String DOMAIN_NAME = ("strathmore.edu");
+    static String DOMAIN_NAME = "strathmore.edu";
+    private static final String TAG = "Register Activity";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,16 +76,7 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                mfirebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(Register.this, "Registration successful. Please check your email to verify account", Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(Register.this, Login.class));
-                                        }
-                                    }
-                                });
-                                //startActivity(new Intent(Register.this, Dashboard.class));
+                                SendVerificationEmail();
                             }
                             else{
                                 Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -89,6 +86,41 @@ public class Register extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(Register.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    // FIREBASE SETUP CODE!
+
+    public void SendVerificationEmail(){
+        mfirebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                FirebaseUser mFirebaseUser = mfirebaseAuth.getCurrentUser();
+                if(task.isSuccessful()){
+                    Toast.makeText(Register.this, "Registration successful. Please check your email to verify account", Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "SendVerificationEmail: Email sent to: " + mFirebaseUser.getEmail());
+                    startActivity(new Intent(Register.this, MainActivity.class));
+                    finish();
+                }
+                else{
+                    Toast.makeText(Register.this, "Error, could not send verification email", Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "SendVerificationEmail: Email NOT sent: " + mFirebaseUser.getEmail());
+                }
+            }
+        });
+    }
+
+    public void ResendEmail(String email, String password){
+        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Log.d(TAG, "onComplete: reauthentication success");
+                    SendVerificationEmail();
+                    FirebaseAuth.getInstance().signOut();
                 }
             }
         });

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Login extends AppCompatActivity {
     EditText lemail, lpass;
     Button login;
+    private static final String TAG = "Login Activity";
     FirebaseAuth mfirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -32,20 +34,7 @@ public class Login extends AppCompatActivity {
         lemail = findViewById(R.id.emaillogin);
         lpass = findViewById(R.id.passlogin);
 
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mfirebaseAuth.getCurrentUser();
-                if(mFirebaseUser != null){
-                    Toast.makeText(Login.this, "Successful log in", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(Login.this, Dashboard.class);
-                    startActivity(i);
-                }
-                else{
-                    Toast.makeText(Login.this, "Error occurred", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
+        FirebaseAuthSetup();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,13 +58,7 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                if(mfirebaseAuth.getCurrentUser().isEmailVerified()){
-                                    startActivity(new Intent(Login.this, Dashboard.class));
-                                    Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    Toast.makeText(Login.this, "Please verify your email address", Toast.LENGTH_SHORT).show();
-                                }
+                                isEmailVerified();
                             }
                             else{
                                 Toast.makeText(Login.this, "Login unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
@@ -90,9 +73,36 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-        mfirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }*/
+    // FIREBASE SETUP CODE!
+
+    private void FirebaseAuthSetup(){
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser mFirebaseUser = mfirebaseAuth.getCurrentUser();
+                if(mFirebaseUser != null){
+                    Log.d(TAG, "OnAuthStateChanged: SIGNED IN: " + mFirebaseUser.getEmail());
+                   // Toast.makeText(Login.this, "Successful log in", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(Login.this, Dashboard.class);
+                    startActivity(i);
+                }
+                else{
+                    Log.d(TAG, "OnAuthStateChanged: SIGNED OUT");
+                }
+            }
+        };
+    }
+
+    private void isEmailVerified(){
+        if(mfirebaseAuth.getCurrentUser().isEmailVerified()){
+            startActivity(new Intent(Login.this, Dashboard.class));
+            Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else{
+            Toast.makeText(Login.this, "Please verify your email address", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }
