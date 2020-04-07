@@ -18,4 +18,11 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="wallet">Wallet</string>
+    <string name="my_loans">My Loans</string>
+    <string name="lend_money">Lend Money</string>
+    <string name="feedback">Feedback</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
 </resources>
