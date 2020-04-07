@@ -1,14 +1,17 @@
 package com.example.strathfund;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,8 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
-    EditText lemail, lpass;
+    EditText lemail, lpass, input;
     Button login;
+    TextView forgotpass;
     private static final String TAG = "Login Activity";
     FirebaseAuth mfirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -33,6 +37,7 @@ public class Login extends AppCompatActivity {
         login = findViewById(R.id.btnlogin);
         lemail = findViewById(R.id.emaillogin);
         lpass = findViewById(R.id.passlogin);
+        forgotpass = findViewById(R.id.textView2);
 
         FirebaseAuthSetup();
 
@@ -71,9 +76,58 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+
+        forgotpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendResetPasswordLink();
+            }
+        });
+
     }
 
+    private void sendResetPasswordLink(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Reset Password");
+        builder.setMessage("Please fill in your email address to receive a reset link");
+
+        input = new EditText(this);
+        builder.setView(input);
+        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String text = input.getText().toString().trim();
+                        FirebaseAuth.getInstance().sendPasswordResetEmail(text).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(Login.this, "Please check your email for the reset password link", Toast.LENGTH_LONG).show();
+                                    Log.d(TAG, "sendResetPasswordLink: Reset link sent");
+                                }
+                                else{
+                                    Toast.makeText(Login.this, "Error, could not send reset link", Toast.LENGTH_LONG).show();
+                                    Log.d(TAG, "SendResetPasswordLink: Error! Reset email NOT sent");
+                                }
+                            }
+                        });
+                    }
+                });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick (DialogInterface dialog,int which){
+                dialog.dismiss();
+                }
+            });
+
+        AlertDialog ad = builder.create();
+        ad.show();
+    }
+
+
+
     // FIREBASE SETUP CODE!
+
+
 
     private void FirebaseAuthSetup(){
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -103,6 +157,4 @@ public class Login extends AppCompatActivity {
             Toast.makeText(Login.this, "Please verify your email address", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }
