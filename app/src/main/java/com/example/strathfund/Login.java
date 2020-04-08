@@ -137,7 +137,7 @@ public class Login extends AppCompatActivity {
                 if(mFirebaseUser != null){
                     Log.d(TAG, "OnAuthStateChanged: SIGNED IN: " + mFirebaseUser.getEmail());
                    // Toast.makeText(Login.this, "Successful log in", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(Login.this, Dashboard.class);
+                    Intent i = new Intent(Login.this, Navdrawer.class);
                     startActivity(i);
                 }
                 else{
@@ -149,7 +149,7 @@ public class Login extends AppCompatActivity {
 
     private void isEmailVerified(){
         if(mfirebaseAuth.getCurrentUser().isEmailVerified()){
-            startActivity(new Intent(Login.this, Dashboard.class));
+            startActivity(new Intent(Login.this, Navdrawer.class));
             Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_SHORT).show();
             finish();
         }
