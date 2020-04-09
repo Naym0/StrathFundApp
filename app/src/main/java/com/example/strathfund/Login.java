@@ -24,7 +24,7 @@ public class Login extends AppCompatActivity {
     EditText lemail, lpass, input;
     Button login;
     TextView forgotpass;
-    private static final String TAG = "Login Activity";
+    private static final String TAG = "Login Activity!!!!!";
     FirebaseAuth mfirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -135,13 +135,13 @@ public class Login extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser mFirebaseUser = mfirebaseAuth.getCurrentUser();
                 if(mFirebaseUser != null){
-                    Log.d(TAG, "OnAuthStateChanged: SIGNED IN: " + mFirebaseUser.getEmail());
+                    Log.d(TAG, "........................................OnAuthStateChanged: SIGNED IN: " + mFirebaseUser.getEmail());
                    // Toast.makeText(Login.this, "Successful log in", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(Login.this, Navdrawer.class);
                     startActivity(i);
                 }
                 else{
-                    Log.d(TAG, "OnAuthStateChanged: SIGNED OUT");
+                    Log.d(TAG, "........................................OnAuthStateChanged: SIGNED OUT");
                 }
             }
         };

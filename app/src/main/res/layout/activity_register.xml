@@ -118,7 +118,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.09"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radiogroup1" />
+                app:layout_constraintTop_toBottomOf="@+id/radio" />
 
             <EditText
                 android:id="@+id/passText"
@@ -192,7 +192,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/number" />
 
             <RadioGroup
-                android:id="@+id/radiogroup1"
+                android:id="@+id/radio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -208,7 +208,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView3">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/radioFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Female"
@@ -216,7 +216,7 @@
                     tools:layout_editor_absoluteY="589dp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/radioMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Male"
@@ -256,7 +256,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:text="Gender"
-                app:layout_constraintBottom_toTopOf="@+id/radiogroup1"
+                app:layout_constraintBottom_toTopOf="@+id/radio"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.09"
                 app:layout_constraintStart_toStartOf="parent"

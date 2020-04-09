@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "244823964733-oulcqrnfigtf88cd0qvji12ioabakvnt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.strathfund",
+            "certificate_hash": "3bbea39f70f85ae9244d3ec86e85aa116206118d"
+          }
+        },
+        {
           "client_id": "244823964733-npiip69l1f84qt491skrv30bo37nf4e2.apps.googleusercontent.com",
           "client_type": 3
         }
