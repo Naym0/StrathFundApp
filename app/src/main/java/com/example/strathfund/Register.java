@@ -1,5 +1,6 @@
 package com.example.strathfund;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,9 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,8 +34,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Register extends AppCompatActivity {
-    EditText rname, remail, rID, rpass, rcpass, rnumber;
-    Button register;
+    EditText rname, remail, rID, rpass, rcpass, rnumber, resetemail, resetpass;
+    Button register, submit;
+    TextView resendemail;
     FirebaseAuth mfirebaseAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String userID;
@@ -40,11 +44,6 @@ public class Register extends AppCompatActivity {
     RadioButton radiobutton;
     static String DOMAIN_NAME = "strathmore.edu";
     private static final String TAG = "Register Activity!!!!!!";
-
-//    FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-//            .setTimestampsInSnapshotsEnabled(true)
-//            .build();
-//    firestore.setFirestoreSettings(settings);
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +57,7 @@ public class Register extends AppCompatActivity {
         rpass = findViewById(R.id.passText);
         rcpass = findViewById(R.id.confirmText);
         rnumber = findViewById(R.id.numberText);
+        resendemail = findViewById(R.id.textView1);
 
         register.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -146,6 +146,37 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
+
+        resendemail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
+                View view = getLayoutInflater().inflate(R.layout.verification_dialog, null);
+                resetemail = view.findViewById(R.id.veriemail);
+                resetpass = view.findViewById(R.id.veripass);
+                submit = view.findViewById(R.id.veributton);
+                builder.setTitle("Resend Verification email");
+                builder.setMessage("Please fill in your email address to receive another verification email");
+                builder.setView(view);
+
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String email1 = resetemail.getText().toString().trim();
+                        String pass1 = resetpass.getText().toString();
+
+                        if ((email1.isEmpty()) || (pass1.isEmpty())) {
+                            Toast.makeText(Register.this, "Both fields must be filled in!", Toast.LENGTH_LONG).show();
+                        } else {
+                            ResendEmail(email1, pass1);
+                        }
+                    }
+                });
+
+                AlertDialog ad = builder.create();
+                ad.show();
+            }
+        });
     }
 
     // FIREBASE SETUP CODE!
@@ -169,17 +200,27 @@ public class Register extends AppCompatActivity {
         });
     }
 
-//    public void ResendEmail(String email, String password){
-//        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
-//        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if(task.isSuccessful()){
-//                    Log.d(TAG, "onComplete: reauthentication success");
-//                    SendVerificationEmail();
-//                    FirebaseAuth.getInstance().signOut();
-//                }
-//            }
-//        });
-//    }
+    public void ResendEmail(String email1, String pass1){
+        AuthCredential credential = EmailAuthProvider.getCredential(email1, pass1);
+        FirebaseAuth.getInstance().signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Log.d(TAG, "..............................onComplete: Reauthentication Success");
+                    mfirebaseAuth.getCurrentUser().sendEmailVerification();
+                    Toast.makeText(Register.this, "Email resent. Please check your email to verify account", Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "..............................onComplete: Email sent!");
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(Register.this, MainActivity.class));
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Register.this, "Invalid credenials!\nReset your password and try again.", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "........................onFailure: Invalid credentials");
+            }
+        });
+    }
 }

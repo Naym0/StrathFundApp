@@ -9,7 +9,9 @@
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-39dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -170,11 +172,11 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:text="Phone Number"
-                app:layout_constraintTop_toBottomOf="@+id/confirmText"
                 app:layout_constraintBottom_toTopOf="@+id/numberText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.09"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/confirmText" />
 
             <EditText
                 android:id="@+id/numberText"
@@ -234,11 +236,11 @@
                 android:layout_marginEnd="25dp"
                 android:layout_marginRight="25dp"
                 android:layout_marginBottom="25dp"
-                android:text="@string/register"
                 android:background="@drawable/btnshape"
+                android:onClick="Register"
+                android:text="@string/register"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                android:onClick="Register"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/numberText" />
 
@@ -262,12 +264,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/idnoText" />
 
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="20dp"
+                android:text="Resend  authentication email"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnregister" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
 
-<!--    <androidx.core.widget.ContentLoadingProgressBar-->
+    <!--    <androidx.core.widget.ContentLoadingProgressBar-->
 <!--        android:id="@+id/progressbar"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
