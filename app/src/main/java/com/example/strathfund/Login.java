@@ -97,28 +97,28 @@ public class Login extends AppCompatActivity {
         builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String text = input.getText().toString().trim();
-                        if(text.isEmpty()){
-                            Toast.makeText(Login.this, "Email field must be filled in!", Toast.LENGTH_LONG).show();
+            String text = input.getText().toString().trim();
+            if(text.isEmpty()){
+                Toast.makeText(Login.this, "Email field must be filled in!", Toast.LENGTH_LONG).show();
+            }
+            else{
+                FirebaseAuth.getInstance().sendPasswordResetEmail(text).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(Login.this, "Please check your email for the reset password link", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "sendResetPasswordLink: Reset link sent");
                         }
                         else{
-                            FirebaseAuth.getInstance().sendPasswordResetEmail(text).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(Login.this, "Please check your email for the reset password link", Toast.LENGTH_LONG).show();
-                                        Log.d(TAG, "sendResetPasswordLink: Reset link sent");
-                                    }
-                                    else{
-                                        Toast.makeText(Login.this, "Error, could not send reset link", Toast.LENGTH_LONG).show();
-                                        Log.d(TAG, "SendResetPasswordLink: Error! Reset email NOT sent");
-                                    }
-                                }
-                            });
+                            Toast.makeText(Login.this, "Error, could not send reset link", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "SendResetPasswordLink: Error! Reset email NOT sent");
                         }
-
                     }
                 });
+            }
+            }
+        });
+
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick (DialogInterface dialog,int which){

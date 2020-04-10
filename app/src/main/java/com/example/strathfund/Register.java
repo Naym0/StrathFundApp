@@ -62,88 +62,89 @@ public class Register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                final String name = rname.getText().toString();
-                final String ID = rID.getText().toString().trim();
-                final String number = rnumber.getText().toString().trim();
-                radiogroup = findViewById(R.id.radio);
-                final String email = remail.getText().toString().trim();
-                String pass = rpass.getText().toString().trim();
-                String cpass = rcpass.getText().toString().trim();
-                String domain = email.substring(email.indexOf("@") + 1).toLowerCase();
+            final String name = rname.getText().toString();
+            final String ID = rID.getText().toString().trim();
+            final String number = rnumber.getText().toString().trim();
+            radiogroup = findViewById(R.id.radio);
+            final String email = remail.getText().toString().trim();
+            String pass = rpass.getText().toString().trim();
+            String cpass = rcpass.getText().toString().trim();
+            String domain = email.substring(email.indexOf("@") + 1).toLowerCase();
 
-                if(email.isEmpty()){
-                    remail.setError("Please enter a valid email address");
-                    remail.requestFocus();
-                }
-                else if(pass.isEmpty()){
-                    rpass.setError("Please enter your password");
-                    rpass.requestFocus();
-                }
-                else if(name.isEmpty()){
-                    rname.setError("Please enter your password");
-                    rname.requestFocus();
-                }
-                else if(ID.isEmpty()){
-                    rID.setError("Please enter your password");
-                    rID.requestFocus();
-                }
-                else if(number.isEmpty()){
-                    rpass.setError("Please enter your password");
-                    rpass.requestFocus();
-                }
-                else if(cpass.isEmpty()){
-                    rnumber.setError("Please confirm your password");
-                    rnumber.requestFocus();
-                }
-                else if(!(cpass.equals(pass))){
-                    rcpass.setError("Please confirm that both passwords match");
-                    rcpass.requestFocus();
-                }
-                else if(!(domain.equals(DOMAIN_NAME))){
-                    remail.setError("Please use a valid Strathmore email address");
-                    remail.requestFocus();
-                }
-                else if(!(email.isEmpty() && pass.isEmpty())){
-                    mfirebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
+            if(email.isEmpty()){
+                remail.setError("Please enter a valid email address");
+                remail.requestFocus();
+            }
+            else if(pass.isEmpty()){
+                rpass.setError("Please enter your password");
+                rpass.requestFocus();
+            }
+            else if(name.isEmpty()){
+                rname.setError("Please enter your password");
+                rname.requestFocus();
+            }
+            else if(ID.isEmpty()){
+                rID.setError("Please enter your password");
+                rID.requestFocus();
+            }
+            else if(number.isEmpty()){
+                rpass.setError("Please enter your password");
+                rpass.requestFocus();
+            }
+            else if(cpass.isEmpty()){
+                rnumber.setError("Please confirm your password");
+                rnumber.requestFocus();
+            }
+            else if(!(cpass.equals(pass))){
+                rcpass.setError("Please confirm that both passwords match");
+                rcpass.requestFocus();
+            }
+            else if(!(domain.equals(DOMAIN_NAME))){
+                remail.setError("Please use a valid Strathmore email address");
+                remail.requestFocus();
+            }
+            else if(!(email.isEmpty() && pass.isEmpty())){
+                mfirebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
 
-                                SendVerificationEmail();
+                        SendVerificationEmail();
 
-                                userID = mfirebaseAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = db.collection("User").document(userID);
-                                Map<String, Object> User = new HashMap<>();
-                                User.put("name", name);
-                                User.put("email", email);
-                                User.put("ID", ID);
-                                if (radiogroup.getCheckedRadioButtonId() == R.id.radioFemale){
-                                    User.put("gender", "female");
-                                } else {
-                                    User.put("gender", "male");
-                                }
-                                User.put("number", number);
-                                documentReference.set(User).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "..................................ONSUCCESS: Data Stored successfully for user " +userID);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "..................................ONFAILURE: " + e.toString());
-                                    }
-                                });
-                            }
-                            else{
-                                Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
+                        userID = mfirebaseAuth.getCurrentUser().getUid();
+                        DocumentReference documentReference = db.collection("User").document(userID);
+                        Map<String, Object> User = new HashMap<>();
+                        User.put("name", name);
+                        User.put("email", email);
+                        User.put("ID", ID);
+                        if (radiogroup.getCheckedRadioButtonId() == R.id.radioFemale){
+                            User.put("gender", "female");
+                        } else {
+                            User.put("gender", "male");
                         }
-                    });
-                }
-                else{
-                    Toast.makeText(Register.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
-                }
+                        User.put("number", number);
+
+                        documentReference.set(User).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "..................................ONSUCCESS: Data Stored successfully for user " +userID);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "..................................ONFAILURE: " + e.toString());
+                            }
+                        });
+                    }
+                    else{
+                        Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    }
+                });
+            }
+            else{
+                Toast.makeText(Register.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
+            }
             }
         });
 
@@ -162,14 +163,14 @@ public class Register extends AppCompatActivity {
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String email1 = resetemail.getText().toString().trim();
-                        String pass1 = resetpass.getText().toString();
+                    String email1 = resetemail.getText().toString().trim();
+                    String pass1 = resetpass.getText().toString();
 
-                        if ((email1.isEmpty()) || (pass1.isEmpty())) {
-                            Toast.makeText(Register.this, "Both fields must be filled in!", Toast.LENGTH_LONG).show();
-                        } else {
-                            ResendEmail(email1, pass1);
-                        }
+                    if ((email1.isEmpty()) || (pass1.isEmpty())) {
+                        Toast.makeText(Register.this, "Both fields must be filled in!", Toast.LENGTH_LONG).show();
+                    } else {
+                        ResendEmail(email1, pass1);
+                    }
                     }
                 });
 
