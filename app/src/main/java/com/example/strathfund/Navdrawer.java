@@ -6,13 +6,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.strathfund.Fragments.Dashboard_Fragment;
+import com.example.strathfund.Fragments.Feedback_Fragment;
+import com.example.strathfund.Fragments.Lend_Fragment;
+import com.example.strathfund.Fragments.Loans_Fragment;
+import com.example.strathfund.Fragments.Profile_Fragment;
+import com.example.strathfund.Fragments.Wallet_Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -23,7 +31,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class Navdrawer extends AppCompatActivity {
+public class Navdrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "NavDrawer Activity";
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -39,6 +47,9 @@ public class Navdrawer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navdrawer);
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,6 +59,54 @@ public class Navdrawer extends AppCompatActivity {
         toggle.syncState();
 
         getUserDetails();
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new Dashboard_Fragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_dashboard);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_dashboard:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new Dashboard_Fragment()).commit();
+                break;
+
+            case R.id.nav_wallet:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new Wallet_Fragment()).commit();
+                break;
+
+            case R.id.nav_loans:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new Loans_Fragment()).commit();
+                break;
+
+            case R.id.nav_lend:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new Lend_Fragment()).commit();
+                break;
+
+            case R.id.nav_feedback:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new Feedback_Fragment()).commit();
+                break;
+
+            case R.id.nav_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new Profile_Fragment()).commit();
+                break;
+
+            case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(Navdrawer.this, MainActivity.class));
+                finish();
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
