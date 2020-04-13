@@ -159,6 +159,7 @@ public class Login extends AppCompatActivity {
             startActivity(new Intent(Login.this, Navdrawer.class));
             Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_SHORT).show();
             finish();
+            finish();
         }
         else{
             Toast.makeText(Login.this, "Please verify your email address", Toast.LENGTH_SHORT).show();

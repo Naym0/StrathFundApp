@@ -35,7 +35,7 @@
 
             <RatingBar
                 android:id="@+id/ratingBar"
-                android:layout_width="250dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
 
@@ -134,7 +134,9 @@
 
     </RelativeLayout>
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -277,6 +279,6 @@
 
         </LinearLayout>
 
-
+    </ScrollView>
 
 </LinearLayout>
