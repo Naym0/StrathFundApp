@@ -123,6 +123,9 @@ public class Register extends AppCompatActivity {
                             User.put("gender", "male");
                         }
                         User.put("number", number);
+                        User.put("loans", "0");
+                        User.put("wallet", "0");
+                        User.put("defaults", "0");
 
                         documentReference.set(User).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

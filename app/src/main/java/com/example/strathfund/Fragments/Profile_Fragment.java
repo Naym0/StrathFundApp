@@ -21,7 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Profile_Fragment extends Fragment {
-    TextView name, name1, email, ID, gender, number;
+    TextView name, name1, email, ID, gender, number, loans, wallet, defaults;
     private static final String TAG = "Profile Activity!!!!!";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -39,6 +39,9 @@ public class Profile_Fragment extends Fragment {
         ID = view.findViewById(R.id.profile_ID);
         gender = view.findViewById(R.id.profile_gender);
         number = view.findViewById(R.id.profile_number);
+        loans = view.findViewById(R.id.profile_loans);
+        wallet = view.findViewById(R.id.profile_wallet);
+        defaults = view.findViewById(R.id.profile_defaults);
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -52,6 +55,10 @@ public class Profile_Fragment extends Fragment {
                         ID.setText(document.getString("ID"));
                         gender.setText(document.getString("gender"));
                         number.setText(document.getString("number"));
+                        loans.setText(document.getString("loans"));
+                        String ksh = "Ksh. ".concat(document.getString("wallet"));
+                        wallet.setText(ksh);
+                        defaults.setText(document.getString("defaults"));
                     } else {
                         Log.d(TAG, "............................No such document");
                     }
