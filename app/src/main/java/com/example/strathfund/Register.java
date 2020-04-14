@@ -118,9 +118,9 @@ public class Register extends AppCompatActivity {
                         User.put("email", email);
                         User.put("ID", ID);
                         if (radiogroup.getCheckedRadioButtonId() == R.id.radioFemale){
-                            User.put("gender", "female");
+                            User.put("gender", "Female");
                         } else {
-                            User.put("gender", "male");
+                            User.put("gender", "Male");
                         }
                         User.put("number", number);
                         User.put("loans", "0");
