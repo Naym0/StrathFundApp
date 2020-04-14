@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".Dashboard"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/profile">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -26,9 +27,9 @@
                 android:layout_marginTop="30dp"/>
 
             <TextView
+                android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NAME"
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 android:layout_gravity="center"/>
@@ -157,10 +158,10 @@
                     android:src="@drawable/ic_person"/>
 
                 <TextView
+                    android:id="@+id/profile_name1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="User123 User456"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"/>
 
@@ -179,10 +180,10 @@
                     android:src="@drawable/ic_mail"/>
 
                 <TextView
+                    android:id="@+id/profile_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="User@strathmore.edu"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"/>
 
@@ -201,10 +202,10 @@
                     android:src="@drawable/ic_id"/>
 
                 <TextView
+                    android:id="@+id/profile_ID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="35519212"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"/>
 
@@ -223,10 +224,10 @@
                     android:src="@drawable/ic_people"/>
 
                 <TextView
+                    android:id="@+id/profile_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="Female/Male"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"/>
 
@@ -245,10 +246,10 @@
                     android:src="@drawable/ic_phone"/>
 
                 <TextView
+                    android:id="@+id/profile_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="254712345678"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"/>
 
@@ -271,7 +272,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:inputType="textPassword"
-                    android:text="qwerty"
+                    android:text="qwertyqwerty"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"/>
 
