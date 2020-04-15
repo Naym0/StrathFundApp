@@ -44,36 +44,36 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = lemail.getText().toString();
-                String pass = lpass.getText().toString();
+            String email = lemail.getText().toString();
+            String pass = lpass.getText().toString();
 
-                if(email.isEmpty()){
-                    lemail.setError("Please enter a valid email address");
-                    lemail.requestFocus();
-                }
-                else if(pass.isEmpty()){
-                    lpass.setError("Please enter your password");
-                    lpass.requestFocus();
-                }
-                else if(email.isEmpty() && pass.isEmpty()){
-                    Toast.makeText(Login.this, "Fields are empty!", Toast.LENGTH_SHORT).show();
-                }
-                else if(!(email.isEmpty() && pass.isEmpty())){
-                    mfirebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                isEmailVerified();
-                            }
-                            else{
-                                Toast.makeText(Login.this, "Login unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
-                            }
+            if(email.isEmpty()){
+                lemail.setError("Please enter a valid email address");
+                lemail.requestFocus();
+            }
+            else if(pass.isEmpty()){
+                lpass.setError("Please enter your password");
+                lpass.requestFocus();
+            }
+            else if(email.isEmpty() && pass.isEmpty()){
+                Toast.makeText(Login.this, "Fields are empty!", Toast.LENGTH_SHORT).show();
+            }
+            else if(!(email.isEmpty() && pass.isEmpty())){
+                mfirebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            isEmailVerified();
                         }
-                    });
-                }
-                else{
-                    Toast.makeText(Login.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
-                }
+                        else{
+                            Toast.makeText(Login.this, "Login unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+            else{
+                Toast.makeText(Login.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
+            }
             }
         });
 
@@ -105,14 +105,14 @@ public class Login extends AppCompatActivity {
                 FirebaseAuth.getInstance().sendPasswordResetEmail(text).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(Login.this, "Please check your email for the reset password link", Toast.LENGTH_LONG).show();
-                            Log.d(TAG, "sendResetPasswordLink: Reset link sent");
-                        }
-                        else{
-                            Toast.makeText(Login.this, "Error, could not send reset link", Toast.LENGTH_LONG).show();
-                            Log.d(TAG, "SendResetPasswordLink: Error! Reset email NOT sent");
-                        }
+                    if(task.isSuccessful()){
+                        Toast.makeText(Login.this, "Please check your email for the reset password link", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "sendResetPasswordLink: Reset link sent");
+                    }
+                    else{
+                        Toast.makeText(Login.this, "Error, could not send reset link", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "SendResetPasswordLink: Error! Reset email NOT sent");
+                    }
                     }
                 });
             }
@@ -140,16 +140,16 @@ public class Login extends AppCompatActivity {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mfirebaseAuth.getCurrentUser();
-                if(mFirebaseUser != null){
-                    Log.d(TAG, "........................................OnAuthStateChanged: SIGNED IN: " + mFirebaseUser.getEmail());
-                   // Toast.makeText(Login.this, "Successful log in", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(Login.this, Navdrawer.class);
-                    startActivity(i);
-                }
-                else{
-                    Log.d(TAG, "........................................OnAuthStateChanged: SIGNED OUT");
-                }
+            FirebaseUser mFirebaseUser = mfirebaseAuth.getCurrentUser();
+            if(mFirebaseUser != null){
+                Log.d(TAG, "........................................OnAuthStateChanged: SIGNED IN: " + mFirebaseUser.getEmail());
+               // Toast.makeText(Login.this, "Successful log in", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Login.this, Navdrawer.class);
+                startActivity(i);
+            }
+            else{
+                Log.d(TAG, "........................................OnAuthStateChanged: SIGNED OUT");
+            }
             }
         };
     }

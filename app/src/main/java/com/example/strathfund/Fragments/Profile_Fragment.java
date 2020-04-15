@@ -45,27 +45,27 @@ public class Profile_Fragment extends Fragment {
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "............................DocumentSnapshot data: \n" + document.getData());
-                        name.setText(document.getString("name"));
-                        name1.setText(document.getString("name"));
-                        email.setText(document.getString("email"));
-                        ID.setText(document.getString("ID"));
-                        gender.setText(document.getString("gender"));
-                        number.setText(document.getString("number"));
-                        loans.setText(document.getString("loans"));
-                        String ksh = "Ksh. ".concat(document.getString("wallet"));
-                        wallet.setText(ksh);
-                        defaults.setText(document.getString("defaults"));
-                    } else {
-                        Log.d(TAG, "............................No such document");
-                    }
+            if(task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Log.d(TAG, "............................DocumentSnapshot data: \n" + document.getData());
+                    name.setText(document.getString("name"));
+                    name1.setText(document.getString("name"));
+                    email.setText(document.getString("email"));
+                    ID.setText(document.getString("ID"));
+                    gender.setText(document.getString("gender"));
+                    number.setText(document.getString("number"));
+                    loans.setText(document.getString("loans"));
+                    String ksh = "Ksh. ".concat(document.getString("wallet"));
+                    wallet.setText(ksh);
+                    defaults.setText(document.getString("defaults"));
+                } else {
+                    Log.d(TAG, "............................No such document");
                 }
-                else{
-                    Log.d(TAG, "..........................ERROR: " +task.getException().getMessage());
-                }
+            }
+            else{
+                Log.d(TAG, "..........................ERROR: " +task.getException().getMessage());
+            }
             }
         });
 

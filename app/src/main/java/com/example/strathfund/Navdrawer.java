@@ -151,23 +151,23 @@ public class Navdrawer extends AppCompatActivity implements NavigationView.OnNav
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "............................DocumentSnapshot data: \n" + document.getData());
-                        name.setText(document.getString("name"));
-                        email.setText(document.getString("email"));
-                    } else {
-                        Log.d(TAG, "............................No such document");
-                        name.setText("StrathFund");
-                        email.setText("Strathfund@firebase.com");
-                    }
-                }
-                else{
-                    Log.d(TAG, "..........................ERROR: " +task.getException().getMessage());
+            if(task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Log.d(TAG, "............................DocumentSnapshot data: \n" + document.getData());
+                    name.setText(document.getString("name"));
+                    email.setText(document.getString("email"));
+                } else {
+                    Log.d(TAG, "............................No such document");
                     name.setText("StrathFund");
                     email.setText("Strathfund@firebase.com");
                 }
+            }
+            else{
+                Log.d(TAG, "..........................ERROR: " +task.getException().getMessage());
+                name.setText("StrathFund");
+                email.setText("Strathfund@firebase.com");
+            }
             }
         });
     }
