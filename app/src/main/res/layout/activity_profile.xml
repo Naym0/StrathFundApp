@@ -277,7 +277,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:inputType="textPassword"
-                    android:text="qwertyqwerty"
+                    android:text="**************"
                     android:layout_gravity="center"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
