@@ -62,12 +62,12 @@ public class Login extends AppCompatActivity {
                 mfirebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            isEmailVerified();
-                        }
-                        else{
-                            Toast.makeText(Login.this, "Login unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
-                        }
+                    if(task.isSuccessful()){
+                        isEmailVerified();
+                    }
+                    else{
+                        Toast.makeText(Login.this, "Login unsuccessful, Please try again", Toast.LENGTH_SHORT).show();
+                    }
                     }
                 });
             }
@@ -120,11 +120,11 @@ public class Login extends AppCompatActivity {
         });
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick (DialogInterface dialog,int which){
-                dialog.dismiss();
-                }
-            });
+            @Override
+            public void onClick (DialogInterface dialog,int which){
+            dialog.dismiss();
+            }
+        });
 
         AlertDialog ad = builder.create();
         ad.show();
