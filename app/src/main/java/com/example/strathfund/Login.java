@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Login extends AppCompatActivity {
     EditText lemail, lpass, input;
     Button login;
-    TextView forgotpass;
+    TextView forgotpass, fingerauth;
     private static final String TAG = "Login Activity!!!!!";
     FirebaseAuth mfirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -38,6 +38,7 @@ public class Login extends AppCompatActivity {
         lemail = findViewById(R.id.emaillogin);
         lpass = findViewById(R.id.passlogin);
         forgotpass = findViewById(R.id.textView2);
+        fingerauth = findViewById(R.id.loginfinger);
 
         FirebaseAuthSetup();
 
@@ -81,6 +82,14 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendResetPasswordLink();
+            }
+        });
+
+        fingerauth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Fingerprint_auth.class);
+                startActivity(intent);
             }
         });
 
