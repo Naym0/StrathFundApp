@@ -39,34 +39,9 @@
                 android:textSize="25sp"
                 android:layout_marginStart="5dp"/>
 
+
+
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btnshape"
-                android:text="Deposit"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btnshape"
-                android:layout_alignParentRight="true"
-                android:text="Withdraw"/>
-
-        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -99,5 +74,26 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btnshape"
+            android:text="Deposit"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btnshape"
+            android:layout_alignParentRight="true"
+            android:text="Withdraw"/>
+
+    </RelativeLayout>
 
 </LinearLayout>
